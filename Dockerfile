@@ -13,12 +13,6 @@ RUN apt-get update -y && apt-get install apt-transport-https \
     --no-install-suggests \
     -y 
 
-RUN pecl install sqlsrv-4.0.6 \
-    && echo "[sqlsrv]" >> /etc/php/7.0/mods-available/sqlsrv.ini \
-    && echo "extension=sqlsrv.so" >> /etc/php/7.0/mods-available/sqlsrv.ini \
-    && phpenmod sqlsrv
-    
-
 RUN echo '' | pecl install apcu \
     && echo "[apcu]" >> /etc/php/7.0/mods-available/apcu.ini \
     && echo "extension=apcu.so" >> /etc/php/7.0/mods-available/apcu.ini \
@@ -30,6 +24,15 @@ RUN echo '' | pecl install apcu \
 RUN apt-get install -y locales \
     && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
     && locale-gen
+
+
+RUN pecl install sqlsrv-4.0.7 \
+    && echo "[sqlsrv]" >> /etc/php/7.0/mods-available/sqlsrv.ini \
+    && echo "extension=sqlsrv.so" >> /etc/php/7.0/mods-available/sqlsrv.ini \
+    && echo "sqlsrv.ClientBufferMaxKBSize = 102400" >> /etc/php/7.0/mods-available/sqlsrv.ini \
+    && phpenmod sqlsrv
+    
+
 
 RUN rm -rf /usr/src/* \
     rm -rf /var/lib/apt/lists/* \
