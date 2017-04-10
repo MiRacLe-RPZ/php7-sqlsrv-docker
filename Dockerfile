@@ -26,7 +26,7 @@ RUN apt-get install -y locales \
     && locale-gen
 
 
-RUN pecl install sqlsrv-4.1.7preview \
+RUN pecl install sqlsrv-4.1.8preview \
     && echo "[sqlsrv]" >> /etc/php/7.0/mods-available/sqlsrv.ini \
     && echo "extension=sqlsrv.so" >> /etc/php/7.0/mods-available/sqlsrv.ini \
     && echo "sqlsrv.ClientBufferMaxKBSize = 102400" >> /etc/php/7.0/mods-available/sqlsrv.ini \
