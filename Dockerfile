@@ -20,13 +20,13 @@ RUN echo '' | pecl install apcu \
     && phpenmod apcu
 
 
-# generate UTF8 locales (#161)
+# generate locales
 RUN apt-get install -y locales \
-    && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
-    && locale-gen
+    && locale-gen en_US.UTF-8 \
+    && locale-gen ru_RU.CP1251
 
 
-RUN pecl install sqlsrv-4.1.8preview \
+RUN pecl install sqlsrv-4.1.9preview \
     && echo "[sqlsrv]" >> /etc/php/7.0/mods-available/sqlsrv.ini \
     && echo "extension=sqlsrv.so" >> /etc/php/7.0/mods-available/sqlsrv.ini \
     && echo "sqlsrv.ClientBufferMaxKBSize = 102400" >> /etc/php/7.0/mods-available/sqlsrv.ini \
