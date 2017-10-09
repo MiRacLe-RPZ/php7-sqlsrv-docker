@@ -19,6 +19,7 @@ RUN echo '' | pecl install apcu \
     && echo "apc.shm_size = 128M" >> /etc/php/7.0/mods-available/apcu.ini \
     && phpenmod apcu
 
+RUN pecl install xdebug
 
 # generate locales
 RUN apt-get install -y locales \
@@ -26,7 +27,7 @@ RUN apt-get install -y locales \
     && locale-gen ru_RU.CP1251
 
 
-RUN pecl install sqlsrv-5.0.0preview \
+RUN pecl install sqlsrv-5.1.0preview \
     && echo "[sqlsrv]" >> /etc/php/7.0/mods-available/sqlsrv.ini \
     && echo "extension=sqlsrv.so" >> /etc/php/7.0/mods-available/sqlsrv.ini \
     && echo "sqlsrv.ClientBufferMaxKBSize = 102400" >> /etc/php/7.0/mods-available/sqlsrv.ini \
