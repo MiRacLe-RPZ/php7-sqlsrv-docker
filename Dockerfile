@@ -4,11 +4,12 @@ MAINTAINER MiRacLe "miracle@rpz.name"
 
 RUN apt-get update -y && apt-get install apt-transport-https \
     php-pear php7.0-dev php7.0-fpm php7.0-curl php7.0-gd php7.0-soap php7.0-mbstring php7.0-mcrypt php7.0-curl php7.0-bcmath php7.0-sqlite3 -y \
-    &&  echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/mssql-ubuntu-xenial-release/ xenial main" > /etc/apt/sources.list.d/mssqlpreview.list \
-    && apt-key adv --keyserver apt-mo.trafficmanager.net --recv-keys 417A0893 \
+    && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+    && curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssql-release.list \
     && apt-get update -y \
     && apt-get upgrade -y \
-    && ACCEPT_EULA=Y apt-get install msodbcsql unixodbc-dev-utf16 \
+    && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> /etc/profile.d/mssql-tools.sh \
+    && ACCEPT_EULA=Y apt-get install msodbcsql mssql-tools unixodbc-dev \
     --no-install-recommends \
     --no-install-suggests \
     -y 
@@ -27,7 +28,7 @@ RUN apt-get install -y locales \
     && locale-gen ru_RU.CP1251
 
 
-RUN pecl install sqlsrv-5.1.1preview \
+RUN pecl install sqlsrv-5.1.2preview \
     && echo "[sqlsrv]" >> /etc/php/7.0/mods-available/sqlsrv.ini \
     && echo "extension=sqlsrv.so" >> /etc/php/7.0/mods-available/sqlsrv.ini \
     && echo "sqlsrv.ClientBufferMaxKBSize = 102400" >> /etc/php/7.0/mods-available/sqlsrv.ini \
