@@ -34,7 +34,7 @@ RUN apt-get install -y locales \
     && locale-gen ru_RU.CP1251
 
 
-RUN pecl install sqlsrv-5.2.0 \
+RUN pecl install sqlsrv-5.2.1preview \
     && echo "[sqlsrv]" >> /etc/php/7.0/mods-available/sqlsrv.ini \
     && echo "extension=sqlsrv.so" >> /etc/php/7.0/mods-available/sqlsrv.ini \
     && echo "sqlsrv.ClientBufferMaxKBSize = 102400" >> /etc/php/7.0/mods-available/sqlsrv.ini \
